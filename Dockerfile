@@ -2,7 +2,7 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Install dependencies (Alpine-native noVNC, VNC server, desktop, Wine)
-RUN apk add --no-cache novnc tigervnc fluxbox wine cabextract wget ca-certificates
+RUN apk add --no-cache novnc x11vnc fluxbox wine cabextract wget ca-certificates
 
 # Download Winbox executable (direct stable v3.43 URL)
 RUN mkdir -p /opt && \
@@ -66,8 +66,9 @@ else
     SECURITY="-SecurityTypes None"
 fi
 
-bashio::log.info "Starting VNC server"
-vncserver :0 -geometry 1280x800 -depth 24 $SECURITY
+# Removed vncserver call, x11vnc is started by supervisord
+# bashio::log.info "Starting VNC server"
+# vncserver :0 -geometry 1280x800 -depth 24 $SECURITY
 
 bashio::log.info "Starting noVNC proxy"
 novnc_proxy --listen 80 --vnc 127.0.0.1:5900
