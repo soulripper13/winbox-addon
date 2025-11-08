@@ -9,15 +9,18 @@ RUN apk add --no-cache wget ca-certificates && \
     rm /tmp/docker-novnc.tar.gz
 
 # Install Wine and dependencies for Winbox
-RUN apk add --no-cache wine cabextract && \
-    # Download and extract Winbox (latest stable 64-bit)
-    wget -q https://download.mikrotik.com/routeros/winbox64.exe -O /opt/winbox64.exe && \
-    # Create startup script for Winbox
-    echo '#!/bin/bash\nDISPLAY=:1 wine /opt/winbox64.exe' > /opt/start-winbox.sh && \
-    chmod +x /opt/start-winbox.sh && \
-    # Create .desktop file for easy launch in Fluxbox menu
-    mkdir -p /home/abc/.local/share/applications && \
-    cat > /home/abc/.local/share/applications/winbox.desktop << EOF
+RUN apk add --no-cache wine cabextract
+
+# Download Winbox (latest stable 64-bit)
+RUN wget -q https://download.mikrotik.com/routeros/winbox64.exe -O /opt/winbox64.exe
+
+# Create startup script for Winbox
+RUN echo '#!/bin/bash\nDISPLAY=:1 wine /opt/winbox64.exe' > /opt/start-winbox.sh && \
+    chmod +x /opt/start-winbox.sh
+
+# Create .desktop file for easy launch in Fluxbox menu
+RUN mkdir -p /home/abc/.local/share/applications && \
+    cat > /home/abc/.local/share/applications/winbox.desktop << 'EOF'
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -27,9 +30,10 @@ Exec=/opt/start-winbox.sh
 Icon=/opt/winbox.png
 Terminal=false
 Categories=Network;
-EOF && \
-    # Extract icon (simple fallback)
-    wget -q https://wiki.mikrotik.com/images/thumb/0/0d/Winbox_icon.png/180px-Winbox_icon.png -O /opt/winbox.png && \
+EOF
+
+# Download icon (simple fallback)
+RUN wget -q https://wiki.mikrotik.com/images/thumb/0/0d/Winbox_icon.png/180px-Winbox_icon.png -O /opt/winbox.png && \
     chown -R abc:abc /home/abc
 
 # Set environment for noVNC (listen on port 80 for HA ingress, start Fluxbox desktop)
