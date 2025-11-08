@@ -17,10 +17,10 @@ This addon runs [Winbox](https://mikrotik.com/download) (MikroTik's official rou
 6. In Winbox, connect to your router (discovers automatically; enter IP/credentials if needed).
 
 ## Configuration
-| Option | Description | Default |
-|--------|-------------|---------|
+| Option        | Description                  | Default       |
+|---------------|------------------------------|---------------|
 | `vnc_password` | Password for VNC/noVNC access | None (insecure) |
-| `log_level` | Logging verbosity | INFO |
+| `log_level`   | Logging verbosity            | INFO          |
 
 ## Usage Tips
 - **Auto-connect to router**: Edit `/opt/start-winbox.sh` in the container (via SSH addon) to add `/ip=192.168.88.1` arg: `DISPLAY=:1 wine /opt/winbox64.exe /ip=192.168.88.1`.
