@@ -1,9 +1,0 @@
-build_from:
-  aarch64: "ghcr.io/home-assistant/aarch64-base:3.15"
-  amd64: "ghcr.io/home-assistant/amd64-base:3.15"
-  armv7: "ghcr.io/home-assistant/armv7-base:3.15"
-labels:
-  org.opencontainers.image.title: "Winbox"
-  org.opencontainers.image.description: "Mikrotik router administration program"
-  org.opencontainers.image.source: "https://github.com/soulripper13/my-home-assistant-addons"
-  org.opencontainers.image.licenses: "MIT License"
