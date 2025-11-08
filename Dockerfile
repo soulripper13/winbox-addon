@@ -74,6 +74,10 @@ novnc_proxy --listen 80 --vnc 127.0.0.1:5900
 EOF
 
 # Make service script executable
+COPY rootfs /
+
+EXPOSE 8099
+
 RUN chmod +x /etc/services.d/winbox/run
 
 # Use s6-overlay entrypoint to manage services (fixes PID 1 error)
