@@ -8,6 +8,8 @@ arch:
   - armv7
   - armhf
   - i386
+ingress: true
+ingress_port: 80
 homeassistant_api: true
 iot_class: localpoller
 is_port_exclusive: false
