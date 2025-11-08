@@ -75,3 +75,6 @@ EOF
 
 # Make service script executable
 RUN chmod +x /etc/services.d/winbox/run
+
+# Use s6-overlay entrypoint to manage services (fixes PID 1 error)
+CMD ["/init"]
