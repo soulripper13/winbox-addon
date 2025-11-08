@@ -5,7 +5,9 @@ FROM $BUILD_FROM
 RUN apk add --no-cache novnc tigervnc fluxbox wine cabextract wget ca-certificates
 
 # Download Winbox executable
-RUN wget -q https://download.mikrotik.com/routeros/winbox64.exe -O /opt/winbox64.exe
+RUN mkdir -p /opt && \
+    curl -fL --retry 3 --retry-delay 5 --connect-timeout 30 -o /opt/winbox64.exe https://download.mikrotik.com/routeros/winbox64.exe && \
+    ls -la /opt/winbox64.exe  # Debug: Confirm ~3MB file exists
 
 # Create Winbox startup script
 RUN echo '#!/bin/bash' > /opt/start-winbox.sh && \
@@ -13,7 +15,7 @@ RUN echo '#!/bin/bash' > /opt/start-winbox.sh && \
     chmod +x /opt/start-winbox.sh
 
 # Download Winbox icon
-RUN wget -q https://wiki.mikrotik.com/images/thumb/0/0d/Winbox_icon.png/180px-Winbox_icon.png -O /opt/winbox.png
+RUN curl -fL --retry 3 --retry-delay 5 --connect-timeout 30 -o /opt/winbox.png https://wiki.mikrotik.com/images/thumb/0/0d/Winbox_icon.png/180px-Winbox_icon.png
 
 # Create .desktop entry (for potential XDG use)
 RUN mkdir -p /root/.local/share/applications && \
