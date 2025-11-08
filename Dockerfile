@@ -4,10 +4,10 @@ FROM $BUILD_FROM
 # Install dependencies (Alpine-native noVNC, VNC server, desktop, Wine)
 RUN apk add --no-cache novnc tigervnc fluxbox wine cabextract wget ca-certificates
 
-# Download Winbox executable
+# Download Winbox executable (use mt.lv shortlink for latest version)
 RUN mkdir -p /opt && \
-    curl -fL --retry 3 --retry-delay 5 --connect-timeout 30 -o /opt/winbox64.exe https://download.mikrotik.com/routeros/winbox64.exe && \
-    ls -la /opt/winbox64.exe  # Debug: Confirm ~3MB file exists
+    curl -fL --retry 3 --retry-delay 5 --connect-timeout 30 -o /opt/winbox64.exe https://mt.lv/winbox64 && \
+    [ -f /opt/winbox64.exe ] && [ $(stat -c%s /opt/winbox64.exe) -gt 1000000 ] && echo "Winbox downloaded successfully (~3MB)" || (echo "Download failed" && false)
 
 # Create Winbox startup script
 RUN echo '#!/bin/bash' > /opt/start-winbox.sh && \
