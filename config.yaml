@@ -8,7 +8,6 @@ arch:
   - armv7
   - armhf
   - i386
-image: "ghcr.io/soulripper13/winbox-addon-{arch}"
 homeassistant_api: true
 iot_class: localpoller
 is_port_exclusive: false
