@@ -19,7 +19,6 @@ audio: null
 map:
   - media:rw
   - ssl:ro
-  - addon_logs:ro
   - backup:ro
   - share:rw
 ports:
