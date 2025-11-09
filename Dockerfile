@@ -73,7 +73,7 @@ fi
 # vncserver :0 -geometry 1280x800 -depth 24 $SECURITY
 
 bashio::log.info "Starting noVNC proxy"
-novnc_proxy --listen 80 --vnc 127.0.0.1:5900
+exec novnc_proxy --listen 80 --vnc 127.0.0.1:5900
 EOF
 
 # Make service script executable
