@@ -4,6 +4,8 @@ FROM $BUILD_FROM
 # Install dependencies (Alpine-native noVNC, VNC server, desktop, Wine)
 RUN apk add --no-cache novnc x11vnc fluxbox wine cabextract wget ca-certificates supervisor
 
+# --- TEMPORARY: Find paths of executables ---
+RUN which novnc_proxy
 # --- END TEMPORARY ---
 
 # Download Winbox executable (direct stable v3.43 URL)
