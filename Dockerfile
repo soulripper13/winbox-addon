@@ -59,7 +59,7 @@ bashio::log.info "Setting up VNC"
 # Handle VNC password from add-on options
 PASSWORD=$(bashio::config 'vnc_password')
 if bashio::config.has_value 'vnc_password'; then
-    echo "$PASSWORD" | vncpasswd -f > /root/.vnc/passwd
+    echo "$PASSWORD" > /root/.vnc/passwd
     chmod 600 /root/.vnc/passwd
     SECURITY="-rfbauth /root/.vnc/passwd"
 else
