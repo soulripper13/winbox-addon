@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 RUN apk add --no-cache novnc x11vnc fluxbox wine cabextract wget ca-certificates
 
 # --- TEMPORARY: Find paths of executables ---
-RUN which supervisord
+RUN apk info -L supervisor
 RUN which novnc_proxy
 # --- END TEMPORARY ---
 
