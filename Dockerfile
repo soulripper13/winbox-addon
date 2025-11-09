@@ -51,28 +51,8 @@ EOF
 # Create s6 service script to start VNC and noVNC (reads HA options.json)
 RUN mkdir -p /etc/services.d/winbox && \
     cat > /etc/services.d/winbox/run << 'EOF'
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/env bash
 
-# Set log level from config
-bashio::log.level "$(bashio::config 'log_level')"
-
-bashio::log.info "Setting up VNC"
-
-# Handle VNC password from add-on options
-PASSWORD=$(bashio::config 'vnc_password')
-if bashio::config.has_value 'vnc_password'; then
-    echo "$PASSWORD" > /root/.vnc/passwd
-    chmod 600 /root/.vnc/passwd
-    SECURITY="-rfbauth /root/.vnc/passwd"
-else
-    SECURITY="-SecurityTypes None"
-fi
-
-# Removed vncserver call, x11vnc is started by supervisord
-# bashio::log.info "Starting VNC server"
-# vncserver :0 -geometry 1280x800 -depth 24 $SECURITY
-
-bashio::log.info "Starting noVNC proxy"
 exec novnc_proxy --listen 80 --vnc 127.0.0.1:5900
 EOF
 
