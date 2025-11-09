@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 RUN apk add --no-cache novnc x11vnc fluxbox wine cabextract wget ca-certificates supervisor
 
 # --- TEMPORARY: Find paths of executables ---
-RUN which novnc_proxy
+RUN apk info -L novnc
 # --- END TEMPORARY ---
 
 # Download Winbox executable (direct stable v3.43 URL)
